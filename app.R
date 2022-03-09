@@ -27,9 +27,9 @@ marks <- list("1918" = "1918",
 
 plot <- function(year_range, filter) {
   if(filter=='') {
-    df_by_year <- df |>
-      filter(year>=year_range[1] & year<year_range[2]) |>
-      group_by(year) |>
+    df_by_year <- df %>%
+      filter(year>=year_range[1] & year<year_range[2]) %>%
+      group_by(year) %>%
       summarize(children_per_woman = mean(children_per_woman))
     p <- ggplot(df_by_year, 
           aes(y = children_per_woman,
@@ -39,9 +39,9 @@ plot <- function(year_range, filter) {
           ggtitle("Average Number of Children") +
           theme(plot.title = element_text(hjust = 0.5))
   } else {
-    df_by_year <- df |>
-      filter(year>=year_range[1] & year<year_range[2]) |>
-      group_by(!!sym(filter), year) |>
+    df_by_year <- df %>%
+      filter(year>=year_range[1] & year<year_range[2]) %>%
+      group_by(!!sym(filter), year) %>%
       summarize(children_per_woman = mean(children_per_woman))
 
     p = ggplot(df_by_year, 
